@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Usage: convert.sh [-l LANGUAGE] [-d TEXTDIRECTION] -t TRANSLATION -a ABBREVIATION -i INFILE
+# Usage:        convert.sh [-l LANGUAGE] [-d TEXTDIRECTION] -t TRANSLATION -a ABBREVIATION -i INFILE
 # Requirements: moreutils, grep, sed
 
 INFILE=
@@ -16,7 +16,7 @@ do
 			LANGUAGE="$OPTARG"
 			;;
 		t)
-			TRANSLATION="$(echo "$OPTARG" | sed 's/[^a-zA-Z]/_/g')"
+			TRANSLATION="$(echo "$OPTARG" | sed 's/[^a-zA-Z0-9]/_/g')"
 			;;
 		a)
 			ABBREVIATION="$OPTARG"
@@ -40,10 +40,8 @@ OUTFILE="${LANGUAGE}__${TRANSLATION}__${ABBREVIATION}__${TEXTDIRECTION}.txt"
 
 rm -f "$OUTFILE"
 
-grep -v '^#' "$INFILE" | \
-	while read line
-	do
-		echo "$line" | sed 's/\t/||/g' >> "$OUTFILE"
-	done
+grep -v '^#' "$INFILE" | sed 's/\t\+/||/g' > "$OUTFILE"
 
 iconv -t UTF-8 "$OUTFILE" | sponge "$OUTFILE"
+
+echo "$OUTFILE"
