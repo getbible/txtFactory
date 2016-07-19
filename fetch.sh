@@ -47,13 +47,13 @@ select file in $(ls -S *.txt); do
 	break
 done
 
-read -p "Version name:   " version
+read -p "Translation:    " translation
 read -p "Abbreviation:   " abbreviation
 read -p "Language:       " language
 read -p "Text direction: " textdirection
 
 newfile="$(../convert.sh \
-	-l "$language" -d "$textdirection" -t "$version" -a "$abbreviation" \
+	-l "$language" -d "$textdirection" -t "$translation" -a "$abbreviation" \
 	-i "$file")"
 
 cd ..
