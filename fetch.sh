@@ -59,6 +59,7 @@ newfile="$(../convert.sh \
 cd ..
 mkdir -p bibles
 cp "tmp/$newfile" bibles
+cp tmp/*.html "bibles/${newfile/\.txt/}-copyright.html"
 rm -r tmp
 
 echo "Successfully downloaded $newfile."
