@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage:        fetch.sh [version]
-# Or:           fetch.sh version language translation abbreviation textdirection
+# Or:           fetch.sh version language translation abbreviation textdirection [auto]
 # Or:           bash <(./fetch.sh all)
 # Or:           bash <(./fetch.sh all-with-file translations.txt)
 # Requirements: curl, unzip, grep, sed
@@ -41,7 +41,7 @@ elif [[ "$1" = "all-with-file" ]]; then
 			translation="$(echo "$LINE" | cut -f 3)"
 			abbreviation="$(echo "$LINE" | cut -f 4)"
 			textdirection="$(echo "$LINE" | cut -f 5)"
-			echo "$0" "'$version'" "'$language'" "'$translation'" "'$abbreviation'" "'$textdirection'"
+			echo "$0" "'$version'" "'$language'" "'$translation'" "'$abbreviation'" "'$textdirection' auto"
 		done
 	exit
 else
@@ -61,10 +61,14 @@ curl \
 unzip bible.zip >/dev/null
 rm bible.zip
 
-echo "Which file should I convert?"
-select file in $(ls -S *.txt); do
-	break
-done
+if [[ "$6" = "auto" ]]; then
+	file="$(ls -S | grep -v 'NRSVA\|html' | head -1)"
+else
+	echo "Which file should I convert?"
+	select file in $(ls -S *.txt); do
+		break
+	done
+fi
 
 if [ "$#" -ge 5 ]; then
 	language="$2"
