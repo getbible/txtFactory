@@ -15,7 +15,7 @@ if [[ -z "$1" ]]; then
 		sed -r 's/ ?<option value='\''([^'\'']*)'\''>([^<]*)<\/option>/\1\t\2\n/g')"
 	
 	select version in $(echo "$versions" | head -n -1 | cut -f2 | sed 's/[[:space:]]/./g'); do
-		version="$(echo "$versions" | grep "$version" | cut -f1)"
+		version="$(echo "$versions" | grep -F "${version//./ }" | cut -f1)"
 		break
 	done
 elif [[ "$1" = "all" ]]; then
