@@ -92,7 +92,7 @@
 91	Spanish	Reina_Valera_NT_(1858)	rv1858	LTR
 92	Spanish	Sagradas_Escrituras_(1569)	sse	LTR
 93	Swahili	Swahili	swahili	LTR
-94	Swedish	Swedish_(1917)		swedish	LTR
+94	Swedish	Swedish_(1917)	swedish	LTR
 95	Tagalog	Ang_Dating_Biblia_(1905)	tagalog	LTR
 96	Tamajaq	Tamajaq_Portions	tamajaq	LTR
 97	Thai	Thai_from_kjv	thai	LTR
