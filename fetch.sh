@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Usage:        fetch.sh [version]
+# Or:           fetch.sh version language translation abbreviation textdirection
 # Or:           bash <(./fetch.sh all)
+# Or:           bash <(./fetch.sh all-with-file translations.txt)
 # Requirements: curl, unzip, grep, sed
 
 LIST_URL='http://unbound.biola.edu/index.cfm?method=downloads.showDownloadMain'
@@ -23,6 +25,23 @@ elif [[ "$1" = "all" ]]; then
 		head -n -1 | cut -f1 |\
 		while read version; do
 			echo "$0" "$version"
+		done
+	exit
+elif [[ "$1" = "all-with-file" ]]; then
+	LISTFILE="$2"
+	I=0
+	curl -s "$LIST_URL" |\
+		grep -A 1 "<select name='version_download'>" | tail -1 |\
+		sed -r 's/ ?<option value='\''([^'\'']*)'\''>([^<]*)<\/option>/\1\t\2\n/g' |\
+		head -n -1 | cut -f1 |\
+		while read version; do
+			I=$((I+1))
+			LINE="$(grep -v '^#' "$LISTFILE" | sed "${I}q;d")"
+			language="$(echo "$LINE" | cut -f 2)"
+			translation="$(echo "$LINE" | cut -f 3)"
+			abbreviation="$(echo "$LINE" | cut -f 4)"
+			textdirection="$(echo "$LINE" | cut -f 5)"
+			echo "$0" "'$version'" "'$language'" "'$translation'" "'$abbreviation'" "'$textdirection'"
 		done
 	exit
 else
@@ -47,10 +66,17 @@ select file in $(ls -S *.txt); do
 	break
 done
 
-read -p "Language:       " language
-read -p "Translation:    " translation
-read -p "Abbreviation:   " abbreviation
-read -p "Text direction: " textdirection
+if [ "$#" -ge 5 ]; then
+	language="$2"
+	translation="$3"
+	abbreviation="$4"
+	textdirection="$5"
+else
+	read -p "Language:       " language
+	read -p "Translation:    " translation
+	read -p "Abbreviation:   " abbreviation
+	read -p "Text direction: " textdirection
+fi
 
 newfile="$(../convert.sh \
 	-l "$language" -d "$textdirection" -t "$translation" -a "$abbreviation" \
