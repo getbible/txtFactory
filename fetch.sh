@@ -41,7 +41,7 @@ elif [[ "$1" = "all-with-file" ]]; then
 			translation="$(echo "$LINE" | cut -f 3)"
 			abbreviation="$(echo "$LINE" | cut -f 4)"
 			textdirection="$(echo "$LINE" | cut -f 5)"
-			echo "$0" "'$version'" "'$language'" "'$translation'" "'$abbreviation'" "'$textdirection' auto"
+			echo "$0" "'$version'" "'$language'" "'$translation'" "'$abbreviation'" "'$textdirection'" "auto"
 		done
 	exit
 else
