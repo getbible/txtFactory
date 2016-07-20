@@ -16,7 +16,7 @@ do
 			LANGUAGE="$OPTARG"
 			;;
 		t)
-			TRANSLATION="$(echo "$OPTARG" | sed 's/[^a-zA-Z0-9]/_/g')"
+			TRANSLATION="$(echo "$OPTARG" | sed 's/[^a-zA-Z0-9\(\)_]/_/g')"
 			;;
 		a)
 			ABBREVIATION="$OPTARG"
