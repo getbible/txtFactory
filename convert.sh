@@ -40,7 +40,9 @@ OUTFILE="${LANGUAGE}__${TRANSLATION}__${ABBREVIATION}__${TEXTDIRECTION}.txt"
 
 rm -f "$OUTFILE"
 
-grep -v '^\(#\|[[:space:]]*$\)' "$INFILE" | sed 's/\t\+/||/g' > "$OUTFILE"
+grep -v '^\(#\|[[:space:]]*$\)' "$INFILE" | \
+	sed 's/^\([^\t]\+\)\t\+\([^\t]\+\)\t\+\([^\t]\+\)\(\t.*\t\|\t\)\([^\t]\+\)$/\1||\2||\3||\5/g' \
+	> "$OUTFILE"
 
 iconv -t UTF-8 "$OUTFILE" | sponge "$OUTFILE"
 
