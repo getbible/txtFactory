@@ -87,8 +87,8 @@ newfile="$(../convert.sh \
 	-i "$file")"
 
 cd ..
-mkdir -p bibles
-cp "tmp/$newfile" bibles
+mkdir -p Bibles
+cp "tmp/$newfile" Bibles
 cp tmp/*.html "bibles/${newfile/\.txt/}-copyright.html"
 rm -r tmp
 
