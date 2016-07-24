@@ -35,8 +35,8 @@
 34	Esperanto	Esperanto	esperanto	LTR
 35	Estonian	Estonian	estonian	LTR
 36	Finnish	Finnish_Bible_(1776)	finnish1776	LTR
-37	Finnish	Pyhä_Raamattu_(1933_1938)	pyharaamattu1933	LTR
-38	Finnish	Pyhä_Raamattu_(1992)	pyharaamattu1992	LTR
+37	Finnish	Pyha_Raamattu_(1933_1938)	pyharaamattu1933	LTR
+38	Finnish	Pyha_Raamattu_(1992)	pyharaamattu1992	LTR
 39	French	Darby	darby	LTR
 40	French	Louis_Segond_(1910)	ls1910	LTR
 41	French	Martin_(1744)	martin	LTR
